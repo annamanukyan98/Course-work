@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Cinema.Models.Tickets>
+
+@{
+	ViewBag.Title = "Tickets";
+}
+
+<h2>Tickets</h2>
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.MovieName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Date)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Duration)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Price)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Quantity)
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.MovieName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Date)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Duration)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Price)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Quantity)
+			</td>
+			<td>
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" class="buy" value="Buy" data-id="@item.ID" />
+				</div>
+			</td>
+		</tr>
+	}
+
+</table>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/BuyTicket.js"></script>

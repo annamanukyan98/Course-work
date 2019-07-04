@@ -1,0 +1,136 @@
+﻿@model Cinema.Models.TicketsSale
+
+@{
+	ViewBag.Title = "TicketsSale";
+}
+
+<h2>Tickets Sale</h2>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+@using (Html.BeginForm("BuyTicket", "Home", "POST"))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.ID)
+		@Html.HiddenFor(model => model.Price)
+
+		@if (Model != null)
+		{
+			<table class="listTable table">
+				<tr>
+					<th>Movie name</th>
+					<th>Price</th>
+					<th>Quantity</th>
+				</tr>
+				<tr>
+					<td>
+						@Model.MovieName
+					</td>
+					<td>
+						@Model.Price
+					</td>
+					<td>
+						<select id="select" name="Quantity">
+							@{
+								int quantity = Model.Quantity,
+									i = 0;
+
+								while (i < quantity)
+								{
+									if (quantity == Model.Quantity)
+									{
+										<option selected>@quantity</option>
+									}
+									else
+									{
+										<option>@quantity</option>
+									}
+									quantity--;
+								}
+							}
+						</select>
+					</td>
+				</tr>
+			</table>
+		}
+
+		<table class="formTable">
+			<tbody>
+				<tr>
+					<th>
+						@Html.LabelFor(model => model.TotalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+					</th>
+					<td>
+						@Html.EditorFor(model => model.TotalAmount, new { htmlAttributes = new { @class = "form-control totalAmount" } })
+						@Html.ValidationMessageFor(model => model.TotalAmount, "", new { @class = "text-danger" })
+					</td>
+				</tr>
+				<tr>
+					<th>
+						@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+					</th>
+					<td>
+						@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+					</td>
+				</tr>
+				<tr>
+					<th>
+						@Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+					</th>
+					<td>
+						@Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+					</td>
+				</tr>
+				<tr>
+					<th>
+						@Html.LabelFor(model => model.eMail, htmlAttributes: new { @class = "control-label col-md-2" })
+					</th>
+					<td>
+						@Html.EditorFor(model => model.eMail, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.eMail, "", new { @class = "text-danger" })
+					</td>
+				</tr>
+				<tr>
+					<th>
+						@Html.LabelFor(model => model.CardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+					</th>
+					<td>
+						@Html.EditorFor(model => model.CardNumber, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
+					</td>
+				</tr>
+				<tr>
+					<th>
+						@Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+					</th>
+					<td>
+						@Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-10">
+								<input type="submit" id="payButton" value="Pay" />
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+}
+<script src="~/Scripts/BuyTicket.js"></script>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
